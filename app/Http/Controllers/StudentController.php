@@ -22,7 +22,8 @@ class StudentController extends Controller
 
     public function create()
     {
-        return view('students.create');
+        $courses = \App\Models\Course::all();
+        return view('students.create', compact('courses'));
     }
 
     public function edit(Student $student)
@@ -32,7 +33,10 @@ class StudentController extends Controller
 
     public function store(StoreStudentRequest $request)
     {
-        Student::create($request->validated());
+        $student = Student::create($request->validated());
+        if ($request->has('courses')) {
+            $student->courses()->sync($request->courses);
+        }
         return redirect()->route('students.index');
     }
 

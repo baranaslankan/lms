@@ -7,7 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Student extends Model
 {
-    use HasFactory; 
-
+    use HasFactory;
     protected $fillable = ['fname', 'lname', 'email'];
+
+    public function courses()
+    {
+        return $this->belongsToMany(Course::class);
+    }
 }

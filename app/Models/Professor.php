@@ -5,4 +5,9 @@ use Illuminate\Database\Eloquent\Model;
 class Professor extends Model {
     use HasFactory;
     protected $fillable = ['name'];
+
+    public function course()
+    {
+        return $this->hasOne(Course::class);
+    }
 }
